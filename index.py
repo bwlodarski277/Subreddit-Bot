@@ -46,6 +46,12 @@ async def get(ctx, sub='all', sort='hot', time='day'):
         return
 
     for post in posts:
+        # Making sure NSFW posts can only be sent on NSFW channels
+        if post.over_18:
+            if not ctx.channel.nsfw:
+                await ctx.send("This post is NSFW! To see it, use this command in a NSFW channel.")
+                return
+
         if post.stickied:
             continue
 
@@ -68,8 +74,7 @@ async def get(ctx, sub='all', sort='hot', time='day'):
             else:
                 embed.set_image(url=post.thumbnail)
         if post.total_awards_received > 0:
-            embed.set_footer(text=(#f'{post.subreddit_name_prefixed}{tab}'
-                                   f'⬆️ {post.score}{tab}'
+            embed.set_footer(text=(f'⬆️ {post.score}{tab}'
                                    f'💎 {post.total_awards_received}{tab}'
                                    f'📄 {post.num_comments}'))
         else:
