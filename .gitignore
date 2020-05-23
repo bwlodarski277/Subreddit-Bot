@@ -1,0 +1,9 @@
+# Folders
+.vscode/
+__pycache__/
+
+# File extensions
+*.log
+*.ini
+*.json
+*.out
