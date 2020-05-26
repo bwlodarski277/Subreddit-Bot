@@ -4,8 +4,6 @@ import os
 from datetime import datetime
 from discord.ext import commands
 
-tab = ' ' * 4
-
 with open('config.json') as config:
     prefix, token, reddit_oauth = json.load(config).values()
 
