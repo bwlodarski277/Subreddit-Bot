@@ -4,6 +4,4 @@ __pycache__/
 
 # File extensions
 *.log
-*.ini
-*.json
 *.out
