@@ -1,0 +1,10 @@
+{
+    "prefix": "r/",
+    "token": "",
+    "reddit_oauth": {
+        "userAgent": "",
+        "clientId": "",
+        "clientSecret": "",
+        "refreshToken": ""
+    }
+}
