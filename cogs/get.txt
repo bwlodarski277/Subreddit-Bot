@@ -1,0 +1,5 @@
+Fetches a post from Reddit.
+If the command is called by itself, it gets the hottest post on Reddit.
+If called with a Subreddit, it gets the hottest post from that Subreddit.
+If called with a Subreddit and sort, it gets the top post from the Subreddit using the sort.
+If the sort used is `all`, you can specify a timeframe like `day` or `year`.

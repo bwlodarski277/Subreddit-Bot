@@ -6,19 +6,17 @@ import prawcore.exceptions as pce
 sorts = ['relevance', 'hot', 'top', 'new', 'comments']
 times = ['hour', 'day', 'week', 'month', 'year', 'all']
 
+description = ''
+with open('cogs/search.txt', 'r') as file:
+    description = file.read()
+
 
 class Reddit(commands.Cog):
 
     def __init__(self, client):
         self.client = client
 
-    @commands.command(description=('Searches Reddit using a provided string.\n'
-                                   'Search strings must be surrounded by quotes.\n'
-                                   'By default, the command will get the most relevant posts of all time.\n'
-                                   'You can specify a sort after the string, as well as timeframe to search.\n'
-                                   'You can also specify a subreddit to search.'),
-                      category='Reddit Commands',
-                      brief='Searches Reddit using query.')
+    @commands.command(description=description, brief='Searches Reddit using query.')
     async def search(self, ctx, query=None, sort='relevance', time='all', sub='all'):
 
         sort = sort.lower()
@@ -32,7 +30,7 @@ class Reddit(commands.Cog):
             await ctx.send(f'Invalid sort. Choose from `{", ".join(sorts)}`.')
             return
 
-        elif time not in times:
+        if time not in times:
             await ctx.send(f'Invalid time. Choose from `{", ".join(times)}`.')
             return
 
@@ -47,17 +45,17 @@ class Reddit(commands.Cog):
         try:
             for post in results:
 
-                title = post.title if len(
-                    post.title) <= 256 else post.title[:253] + '...'
+                title = post.title
+                if len(title) > 256:
+                    title = title[:253] + '...'
 
-                embed.add_field(name=title,
-                                value=(f'[view]({post.shortlink}){tab}'
-                                       f'{post.subreddit_name_prefixed}'),
-                                inline=False)
+                value = f'[view]({post.shortlink}){tab}{post.subreddit_name_prefixed}'
+
+                embed.add_field(name=title, value=value, inline=False)
 
             await ctx.send(embed=embed)
 
-        except (pce.NotFound, pce.Redirect):
+        except Exception: # Catch 'em all, there's too many
 
             await ctx.send('No such subreddit!')
 

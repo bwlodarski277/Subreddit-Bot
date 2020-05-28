@@ -1,0 +1,5 @@
+Searches Reddit using a provided string.
+Search strings must be surrounded by quotes.
+By default, the command will get the most relevant posts of all time.
+You can specify a sort after the string, as well as timeframe to search.
+You can also specify a subreddit to search.
